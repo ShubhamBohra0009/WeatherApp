@@ -1,32 +1,23 @@
-import React,{ useState } from 'react';
+import React,{  useState } from 'react';
 import './App.css';
 import {checkWeather} from './logic';
 import Weather from './components/Weather';
+import Card from './components/WeatherCard';
+import cardContext from './Context/UseContext';
 
 function App() {
     const [change,setChange]= useState("");
     const [error,setError]= useState(false);
-    const [display,setDisplay]= useState(true);
+    const [display,setDisplay]= useState(false);
     const [weatherData, setWeatherData] = useState(null);
-    
-  function inputChange(e){
-    setChange(e.target.value);
-    setError(false);
-  }
 
   return (
     <>
-    <div className="card">
-        <div className="search">
-            <input type="text" placeholder="Enter city name" spellCheck="false" value={change} onChange={(e)=>{inputChange(e)}} onKeyDown={(e)=>{e.key==="Enter"&& checkWeather(change,setWeatherData,setError,setDisplay)}}/>
-            <button onClick={()=>{checkWeather(change,setWeatherData,setError,setDisplay)}}  ><img alt="img" src="images/search.png" /></button>
-        </div>
-        {error &&(
-            <div className="error">
-            <p>Invalid city name!!</p>
-        </div>)}
-        {display &&(<Weather data={weatherData}/>)}
-    </div>
+    <cardContext.Provider value={{change,setChange,checkWeather,setWeatherData,error,setError,display,setDisplay}}>
+    <Card>
+    <Weather data={weatherData}/>
+    </Card>
+    </cardContext.Provider>
     </>
   );
 }
