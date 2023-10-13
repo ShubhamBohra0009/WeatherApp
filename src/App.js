@@ -8,7 +8,7 @@ import cardContext from './Context/UseContext';
 function App() {
     const [change,setChange]= useState("");
     const [error,setError]= useState(false);
-    const [display,setDisplay]= useState(false);
+    const [display,setDisplay]= useState(true);
     const [weatherData, setWeatherData] = useState(null);
 
   return (
